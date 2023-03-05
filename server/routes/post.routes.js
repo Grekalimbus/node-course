@@ -1,15 +1,26 @@
 import Router from 'express';
-import Post from '../model/Post.js';
+import PostController from '../controller/PostController.js';
 const router = new Router();
 
-// get
+// post
+router.post('/', async (req, res) => {
+  PostController.create(req, res);
+});
+// getAll
 router.get('/', async (req, res) => {
-  try {
-    const post = await Post.find();
-    res.json(post);
-  } catch (e) {
-    res.status(500).json(e);
-  }
+  PostController.getAll(req, res);
+});
+// getOne
+router.get('/:id', async (req, res) => {
+  PostController.getOne(req, res);
+});
+// put
+router.put('/:id', async (req, res) => {
+  PostController.upDate(req, res);
+});
+// delete
+router.get('/:id', async (req, res) => {
+  PostController.remove(req, res);
 });
 
 export default router;
