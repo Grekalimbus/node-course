@@ -2,12 +2,15 @@ import express from 'express';
 import mongoose from 'mongoose';
 import Post from './model/Post.js';
 import router from './routes/index.js';
+import fileUpload from 'express-fileupload';
 
 const PORT = 5000;
 const app = express();
 const URL =
   'mongodb+srv://danil:mongoose123@node-course.twnp2ms.mongodb.net/node-course?retryWrites=true&w=majority';
 app.use(express.json());
+app.use(fileUpload({}));
+app.use(express.static('static'));
 app.use(express.urlencoded({ extended: false }));
 app.use('/api', router);
 
