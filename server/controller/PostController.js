@@ -1,9 +1,10 @@
 import Post from '../model/Post.js';
+import postService from '../services/post.service.js';
 
 class PostController {
   async create(req, res) {
     try {
-      const post = await Post.find();
+      const post = await postService.create(req.body);
       res.json(post);
     } catch (e) {
       res.status(500).json(e);
@@ -11,7 +12,7 @@ class PostController {
   }
   async getAll(req, res) {
     try {
-      const posts = await Post.find();
+      const posts = await postService.getAll();
       res.json(posts);
     } catch (e) {
       res.status(500).json(e);
@@ -23,7 +24,7 @@ class PostController {
       if (!id) {
         res.status(500).json('Айди не указан');
       }
-      const posts = await Post.findById(id);
+      const posts = await postService.getOne(id);
       res.json(posts);
     } catch (e) {
       res.status(500).json(e);
@@ -35,7 +36,7 @@ class PostController {
       if (!id) {
         res.status(500).json('Айди не указан');
       }
-      const posts = await Post.findByIdAndUpdate(id, req.body, { new: true });
+      const posts = await postService.upDate(id);
       res.json(posts);
     } catch (e) {
       res.status(500).json(e);
@@ -47,7 +48,7 @@ class PostController {
       if (!id) {
         res.status(500).json('Айди не указан');
       }
-      const posts = await Post.findByIdAndDelete(id);
+      const posts = await postService.remove(id);
       res.json(posts);
     } catch (e) {
       res.status(500).json(e);
